@@ -27,7 +27,7 @@ mount "$PARTITION" "$ROOTFS"
 
 rpm --root="$ROOTFS" --initdb
 rpm --root="$ROOTFS" -ivh \
-  http://mirrors.kernel.org/centos/7.2.1511/os/x86_64/Packages/centos-release-7-2.1511.el7.centos.2.10.x86_64.rpm
+  http://vault.centos.org/7.2.1511/os/x86_64/Packages/centos-release-7-2.1511.el7.centos.2.10.x86_64.rpm
 yum --installroot="$ROOTFS" --nogpgcheck -y groupinstall core
 yum --installroot="$ROOTFS" --nogpgcheck -y install openssh-server grub2 tuned kernel chrony
 yum --installroot="$ROOTFS" -C -y remove NetworkManager firewalld --setopt="clean_requirements_on_remove=1"
