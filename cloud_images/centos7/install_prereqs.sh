@@ -40,10 +40,10 @@ ExecStart=/usr/local/sbin/dcos_vol_setup.sh /dev/xvdh /var/log
 [Install]
 WantedBy=local-fs.target
 EOF
-systemctl enable dcos_vol_setup
+systemctl enable --no-ask-password dcos_vol_setup
 
 echo ">>> Disable rsyslog"
-systemctl disable rsyslog
+systemctl disable --no-ask-password rsyslog
 
 echo ">>> Set journald limits"
 mkdir -p /etc/systemd/journald.conf.d/
@@ -58,7 +58,7 @@ curl -fLsSv --retry 20 -Y 100000 -y 60 -o /tmp/docker-engine-1.13.1-1.el7.centos
 curl -fLsSv --retry 20 -Y 100000 -y 60 -o /tmp/docker-engine-selinux-1.13.1-1.el7.centos.noarch.rpm \
   https://yum.dockerproject.org/repo/main/centos/7/Packages/docker-engine-selinux-1.13.1-1.el7.centos.noarch.rpm
 yum -y localinstall /tmp/docker*.rpm || true
-systemctl enable docker
+systemctl enable --no-ask-password docker
 
 echo ">>> Creating docker group"
 /usr/sbin/groupadd -f docker
@@ -130,8 +130,8 @@ ExecStart=$update_hosts_script
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl enable $(basename "$update_hosts_unit")
+systemctl daemon-reload --no-ask-password
+systemctl enable --no-ask-password $(basename "$update_hosts_unit")
 
 
 # Make sure we wait until all the data is written to disk, otherwise
