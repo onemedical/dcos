@@ -4,7 +4,10 @@
     "cloud_builder_version": "0.1",
     "deploy_regions": "{{env `DEPLOY_REGIONS`}}",
     "source_ami": "{{env `SOURCE_AMI`}}",
-    "source_ami_region": "{{env `SOURCE_AMI_REGION`}}"
+    "source_ami_region": "{{env `SOURCE_AMI_REGION`}}",
+
+    "docker_username": "{{env `DOCKER_USERNAME`}}",
+    "docker_password": "{{env `DOCKER_PASSWORD`}}"
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -100,6 +103,16 @@
         "sudo mv /tmp/dcos_vol_setup.sh /usr/local/sbin/",
         "sudo chmod 0755 /usr/local/sbin/dcos_vol_setup.sh /tmp/install_prereqs.sh",
         "sudo /tmp/install_prereqs.sh"
+      ]
+    },
+
+    {
+      "type": "shell",
+      "script": "docker_login.sh",
+      "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+      "environment_vars": [
+        "DOCKER_USERNAME={{user `docker_username`}}",
+        "DOCKER_PASSWORD={{user `docker_password`}}"
       ]
     }
   ]
