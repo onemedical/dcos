@@ -24,3 +24,6 @@ test/build/*
 PASSED
 FAILED
 test/.vagrant/*
+
+# custom
+cloud_images/centos7/ssl_certificates/*

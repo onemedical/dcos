@@ -107,6 +107,12 @@
     },
 
     {
+      "type": "file",
+      "source": "ssl_certificates/",
+      "destination": "/etc/ssl"
+    },
+
+    {
       "type": "shell",
       "script": "docker_login.sh",
       "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
